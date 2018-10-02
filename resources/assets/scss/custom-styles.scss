@@ -1,0 +1,9 @@
+// Your custom styles
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: inherit !important;
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+select{
+  display:inherit !important;
+}
