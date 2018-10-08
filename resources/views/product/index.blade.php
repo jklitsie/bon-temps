@@ -17,7 +17,7 @@
                                 <th scope="col">Naam</th>
                                 <th scope="col">Omschrijving</th>
                                 <th scope="col">Prijs</th>
-                                <th>asd</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>

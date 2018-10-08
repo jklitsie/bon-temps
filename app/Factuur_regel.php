@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Product;
 
-class Menu extends Model
+class Factuur_regel extends Model
 {
     use Notifiable;
 
@@ -18,15 +18,15 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'naam', 'omschrijving', 'prijs', 'gangen'
+        'reservering_id','product', 'prijs', 'hoeveelheid'
     ];
 
     public function rules()
     {
         return [
             'naam' => 'required',
-            'omschrijving' => 'required',
             'prijs' => 'required',
+            'hoeveelheid' => 'integer|required',
         ];
     }
 
@@ -41,12 +41,8 @@ class Menu extends Model
     ];
 
     // Relationships
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'menu_product')->withPivot('gang');
-    }
     public function reserverings()
     {
-        return $this->belongsToMany('App\Reservering','reservering_menu');
+        return $this->belongsTo('App\Reservering');
     }
 }

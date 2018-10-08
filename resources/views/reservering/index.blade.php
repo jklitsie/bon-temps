@@ -8,16 +8,18 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Alle reservering </div>
+                    <div class="card-header">Alle reserveringen </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                             <tr>
                                 <th scope="col">Achternaam klant</th>
-                                <th scope="col">Tijd</th>
-                                <th scope="col">Menu</th>
-                                <th scope="col">Telefoonnummer</th>
-                                <th>asd</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Start Tijd</th>
+                                <th scope="col">Eind Tijd</th>
+                                <th scope="col">Groepsformaat</th>
+                                <th scope="col"></th>
+
                             </tr>
                             </thead>
 
@@ -28,17 +30,21 @@
                                         {{$reservering->klant->achternaam}}
                                     </td>
                                     <td>
-                                        {{$reservering->klant->achternaam}}
+                                        {{$reservering->datum}}
                                     </td>
                                     <td>
-                                        {{$reservering->menu->naam}}
+                                        {{$reservering->start_tijd}}
                                     </td>
                                     <td>
-                                        {{$reservering->klant->telefoonnummer}}
+                                        {{$reservering->eind_tijd}}
                                     </td>
                                     <td>
-                                       {{-- <a href="{{route('editKlant', $klant->id)}}" class="btn btn-primary">Bewerk Reservering</a>
-                                        <a href="{{route('deleteKlant', $klant->id)}}" class="btn btn-primary">Verwijder Reservering</a>--}}
+                                        {{$reservering->groepsgroote}}
+                                    </td>
+                                    <td>
+                                        <a href="{{route('reserveringen', $reservering->id)}}" class="btn btn-primary">Bekijk Reservering</a>
+
+                                        <a href="{{route('showFactuur', $reservering->id)}}" class=" btn btn-primary">Factuur</a>
                                     </td>
                                 </tr>
                             @endforeach

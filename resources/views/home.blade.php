@@ -3,18 +3,47 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-6">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    You are logged in!
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">Reserveringen van vandaag</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                          Achternaam klant
+                        </div>
+                        <div class="col">
+                            Start tijd
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <hr />
+                    @foreach($reserveringen as $reservering)
+                        @if(!$reservering->betaald)
+                        <div class="row">
+                            <div class="col">
+                                <a href="{{route('showKlant',$reservering->klant->id)}}">{{$reservering->klant->achternaam}}</a>
+                            </div>
+                            <div class="col">
+                                {{$reservering->start_tijd}}
+                            </div>
+                            <div class="col">
+                                <a href="{{route('showFactuur',$reservering->id)}}">Naar factuur</a>
+                            </div>
+                        </div>
+                        <hr />
+                        @endif
+                    @endforeach
+
                 </div>
             </div>
         </div>

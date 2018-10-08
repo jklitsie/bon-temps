@@ -44,9 +44,10 @@ class CreateBaseTable extends Migration
 
         Schema::create('factuur_regels', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('reservering_id');
             $table->string('product');
             $table->decimal('prijs');
-            $table->decimal('hoeveelheid');
+            $table->integer('hoeveelheid');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -61,12 +62,21 @@ class CreateBaseTable extends Migration
         Schema::create('reserverings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('klant_id');
-            $table->integer('tafel_id');
-            $table->integer('menu_id');
+            $table->integer('tafel_id')->nullable();
             $table->dateTime('datum');
             $table->time('start_tijd');
+            $table->time('eind_tijd');
             $table->integer('groepsgroote');
+            $table->text('notitie')->nullable();
+            $table->boolean('betaald');
             $table->softDeletes();
+            $table->timestamps();
+        });
+        Schema::create('reservering_menu', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('reservering_id');
+            $table->integer('menu_id');
+            $table->integer('menu_hoeveelheid');
             $table->timestamps();
         });
         Schema::create('klants', function (Blueprint $table) {

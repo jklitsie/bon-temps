@@ -60,9 +60,6 @@ class klantController extends Controller
     }
     public function exportKlanten()
     {
-
-//        return Excel::download(new \App\ExportKlant(),'invoices.xlsx');
-//        return Excel::download(new ExportKlant(),'AlleKlanten.xlsx');
         return (new ExportKlant(2018))->download('invoices.xlsx');
     }
 }

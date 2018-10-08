@@ -42,8 +42,12 @@ class productController extends Controller
     public function showProduct(Product $product)
     {
         $allergieën = Allergieën::all();
-
-       return view('product.showproduct', compact(['product','allergieën']));
+        $bestaandeAllergieën = $product->allergieëns()->get();
+        $checkArray = [];
+        foreach($bestaandeAllergieën as $allergie){
+            $checkArray[] = $allergie->id;
+        }
+       return view('product.showproduct', compact(['product','allergieën','checkArray']));
     }
     public function editProduct (Product $product, Request $request){
 

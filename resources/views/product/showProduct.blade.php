@@ -19,13 +19,25 @@
                             {!! Form::textarea('omschrijving',null,['class' =>'form-control','rows' => 2]) !!}
                             {!!  Form::label('prijs', 'Menu prijs')!!}
                             {!! Form::number('prijs',null,['class' =>'form-control','rows' => 2]) !!}
+                            {{--<h3>Bestaande allergieen</h3>
+                            <ul>
+                                @foreach($bestaandeAllergieën as $bestaandeAllergie)
+                                    <li>{{$bestaandeAllergie->naam}}</li>
+                                @endforeach
+                            </ul>--}}
                         </div>
                         <div class="col-6">
                             <h4>Allergieën</h4>
+                            {{--@TODO--}}
                             @foreach($allergieën as $allergie)
                                 <div class="row">
                                     {!!  Form::label('Allergie', $allergie->naam,['class'=>'col-6'])!!}
-                                    {!! Form::checkbox('allergieën[]',$allergie->id,false,['class'=>'col-6 input-alternate']) !!}
+                                    <input type="checkbox" name="allergieën[]" value="{{$allergie->id}}" class="col-6 input-alternate"@if(in_array($allergie->id, $checkArray))
+                                            checked
+                                            @else
+                                            unchecked
+                                            @endif><br>
+                                    {{--{!! Form::checkbox('allergieën[]',$allergie->id,false,['class'=>'col-6 input-alternate']) !!}--}}
                                 </div>
                             @endforeach
                         </div>

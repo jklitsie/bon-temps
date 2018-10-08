@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Menu;
+use App\Klant;
+use Carbon\Carbon;
 
 class Reservering extends Model
 {
@@ -18,15 +20,17 @@ class Reservering extends Model
      * @var array
      */
     protected $fillable = [
-        'naam', 'omschrijving', 'prijs',
+        'klant_id', 'datum', 'start_tijd','eind_tijd','groepsgroote','betaald'
     ];
 
     public function rules()
     {
         return [
-            'naam' => 'required',
-            'omschrijving' => 'required',
-            'prijs' => 'required',
+            'klant_id'=> 'required|integer',
+            'datum' => 'required|date',
+            'start_tijd' => 'required',
+            'eind_tijd' => 'required',
+            'groepsgroote' => 'required|integer'
         ];
     }
     /**
@@ -36,18 +40,29 @@ class Reservering extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function getProperTime($value)
+    {
+        $date = Carbon::parse($value);
+        return $date->format('H:i');
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        $date = Carbon::parse($value);
+        return $date->format('d-m-Y');
+    }
     protected $hidden = [
 
     ];
     // Relationships
-    public function menu(){
-        return $this->belongsTo('App\Menu');
-    }
     public function klant(){
         return $this->belongsTo('App\Klant');
     }
     public function factuurregels(){
-        return $this->HasMany('App\Factuur_regel');
+        return $this->hasMany('App\Factuur_regel');
+    }
+    public function menus(){
+        return $this->belongsToMany('App\Menu','reservering_menu')->withPivot('menu_hoeveelheid');
     }
 //    public function tafel(){
 //        return $this->HasOne('App\Tafel');

@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\Reservering;
 
 class Klant extends Model
 {
@@ -39,7 +36,7 @@ class Klant extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function reserveringen(){
-        $this->hasMany('App\Reservering');
+    public function reservering(){
+        $this->hasMany('App\Reservering','id');
     }
 }
