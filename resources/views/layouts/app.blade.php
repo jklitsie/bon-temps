@@ -67,9 +67,6 @@
                         </a>
                         <div class="dropdown-menu">
                             <ul>
-
-                                <li>
-                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

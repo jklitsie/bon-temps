@@ -16,21 +16,28 @@
                             <div class="col-9">
                                 {!! Form::select('klant_id',$klanten,null,['class' =>'form-control custom-select']) !!}
                             </div>
-                            <div class="col">
-                                <a  href="{{route('newKlant')}}">Nieuwe Klant?</a>
-                            </div>
                         </div>
                         {!!  Form::label('menu_id', 'Selecteer menu')!!}
-                        <div class="row">
-                            <div class="col-9">
-                                {!! Form::select('menu_id',$menus,null,['class' =>'custom-select']) !!}
+                        <a href='#'id="extramenusselect">Extra menu +</a>
+                        @foreach($reservering_menu as $menu)
+
+                            <div id="{{$count}}" class="row">
+                                <div class="col-9">
+                                    <select name="pocket[{{$count}}][menu_id]" class='custom-select'>
+                                        <option value="{{$menu->id}}">{{$menu->naam}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" name="pocket[{{$count++}}][menu_hoeveelheid]" value="{{$menu->pivot->menu_hoeveelheid}}" />
+                                </div>
+                                <div class="col-1">
+                                    <a href="{{route('deleteMenu_Reservering',[$reservering->id,$menu->id])}}">delete menu +</a>
+                                </div>
                             </div>
-                            <div class="col">
-                                {!! Form::number('menu_hoeveelheid',null,['class' =>'form-control ']) !!}
-                            </div>
-                            <div class="col-1">
-                                <a href="">Extra menu +</a>
-                            </div>
+                        @endforeach
+                        <div id="extramenus">
+
                         </div>
                         <div class="row">
                             <div class="col">
@@ -58,7 +65,7 @@
                                 {!! Form::textarea('notitie',null,['rows'=>'2','class' =>'form-control']) !!}
                             </div>
                         </div>
-                        {!! Form::submit('Maak aan!!', ['class'=>'btn btn-red']) !!}
+                        {!! Form::submit('Bewerk!!', ['class'=>'btn btn-green']) !!}
                         {!! Form::close() !!}
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -75,4 +82,35 @@
             </div>
         </div>
     </div>
+    @push('footer-scripts')
+        {{--@TODO--}}
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function(){
+                let el = document.getElementById('extramenus');
+                let elSel = document.getElementById('extramenusselect');
+                let count = 1;
+                elSel.preventDefault
+                elSel.onclick = function(){
+                    axios.get('{{route('extraMenuRegel')}}').then(function (response) {
+                        let element = document.createElement('div');
+                        element.className = 'row';
+                        element.innerHTML = response.data.html
+                        el.appendChild(element)
+                        let loadChange = document.getElementById('triggerEdit');
+                        let loadChange2 = document.getElementById('triggerEditHoeveelheid');
+                        loadChange.name = 'pocket[' + count + '][menu_id]';
+                        loadChange.removeAttribute('id');
+                        loadChange2.name = 'pocket[' + count + '][menu_hoeveelheid]';
+                        loadChange2.removeAttribute('id');
+                        count++;
+                    })
+                }
+            });
+
+
+
+
+
+        </script>
+    @endpush
 @endsection

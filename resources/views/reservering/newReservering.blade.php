@@ -25,13 +25,13 @@
                             {!!  Form::label('menu_id', 'Selecteer menu')!!}
                             <div class="row">
                                 <div class="col-9">
-                                    {!! Form::select('pocket[1]["menu_id"]',$menus,null,['class' =>'custom-select']) !!}
+                                    {!! Form::select('pocket[0][menu_id]',$menus,null,['class' =>'custom-select']) !!}
                                 </div>
                                 <div class="col">
-                                    {!! Form::number('pocket[1]["menu_hoeveelheid"]',null,['class' =>'form-control ']) !!}
+                                    {!! Form::number('pocket[0][menu_hoeveelheid]',null,['class' =>'form-control ']) !!}
                                 </div>
                                 <div class="col-1">
-                                    <a id="extramenusselect">Extra menu +</a>
+                                    <a href='#'id="extramenusselect">Extra menu +</a>
                                 </div>
                             </div>
                             <div id="extramenus">
@@ -102,12 +102,7 @@
                                 newP.innerHTML = item.voornaam
                                 newP.setAttribute('onmousedown','postUserValue('+ item.id +')')
                                 path.appendChild(newP)
-
-
                                 });
-
-
-
                         });
 
             }
@@ -117,16 +112,22 @@
             document.addEventListener('DOMContentLoaded', function(){
                 let el = document.getElementById('extramenus');
                 let elSel = document.getElementById('extramenusselect');
-
-                el.preventDefault
+                let count = 1;
+                elSel.preventDefault
                 elSel.onclick = function(){
-
                     axios.get('{{route('extraMenuRegel')}}').then(function (response) {
                         let element = document.createElement('div');
                         element.className = 'row';
                         console.log(response.data)
                         element.innerHTML = response.data.html
                         el.appendChild(element)
+                        let loadChange = document.getElementById('triggerEdit');
+                        let loadChange2 = document.getElementById('triggerEditHoeveelheid');
+                        loadChange.name = 'pocket[' + count + '][menu_id]';
+                        loadChange.removeAttribute('id');
+                        loadChange2.name = 'pocket[' + count + '][menu_hoeveelheid]';
+                        loadChange2.removeAttribute('id');
+                        count++;
                     })
                 }
             });

@@ -10,6 +10,7 @@ use App\Menu;
 use App\Reservering;
 use Illuminate\Http\Request;
 use Validator;
+use Carbon\Carbon;
 
 class FactuurController extends Controller
 {
@@ -31,14 +32,14 @@ class FactuurController extends Controller
         Factuur_regel::create($attributes);
         return redirect()->back();
     }
-    public function factuurBetaald(Reservering $reservering){
-        if($reservering->betaald){
-            $attributes['betaald'] = false;
+    public function factuurBetaald($id){
+        $reservering = Reservering::find($id);
+        if(!$reservering->betaald){
+            $attribute['betaald'] = Carbon::today()->toDateString();
+            $reservering->update($attribute);
         }else{
-            $attributes['betaald'] = true;
+            return response()->json(['status'=>'is al betaald']);
         }
-        $reservering->update($attributes);
-//        return redirect()->back();
         return response()->json(['status'=> 'ok']);
     }
 }

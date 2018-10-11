@@ -51,6 +51,11 @@ class Reservering extends Model
         $date = Carbon::parse($value);
         return $date->format('d-m-Y');
     }
+    public function getCreatedDateForReservering($value)
+    {
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d');
+    }
     protected $hidden = [
 
     ];

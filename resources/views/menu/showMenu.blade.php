@@ -29,9 +29,6 @@
                                     @foreach($menu_products as $product)
                                         @if($product->pivot->gang == $i)
                                             <a href="{{route('showProduct', $product->id)}}" >{{$product->naam}}</a>
-                                            {{--{{ Form::open(['route' => ['deleteProductFromMenu', $menu->id, $product->id]]) }}
-                                            {!! Form::submit('X', ['class'=>'']) !!}
-                                            {{ Form::close() }}--}}
                                         @endif
                                     @endforeach
                                 @endfor
@@ -49,7 +46,16 @@
                             </div>
                         @endif
                         <div class="row">
-
+                            <div class="col-12">
+                                <h1>de volgende allergieën komen voor in dit menu</h1>
+                            </div>
+                            <div class="col-12">
+                                <ul>
+                                    @foreach($allergieën as $allergie)
+                                        <li>{{$allergie}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,9 +12,11 @@
                         <h1 class="pull-left">Factuur</h1>
                         <div class="switch pull-right">
                             <label>
-                                Niet betaald
-                                <input type="checkbox">
-                                <span class="lever"></span> betaald
+                                @if($reservering->betaald)
+                                    <a class="btn btn-green">Betaald</a>
+                                @else
+                                    <a id="statustrigger" class="btn btn-red">Nog niet betaald</a>
+                                @endif
                             </label>
                         </div>
                     </div>
@@ -102,12 +104,10 @@
         {{--@TODO--}}
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function(){
-                const el = document.getElementsByClassName('switch')[0]
-
+                const el = document.getElementById('statustrigger');
                 el.onclick = function(){
                     axios.get( '{{route('factuurStatus',$reservering->id)}}').then(function(response){
-                        console.log('aids')
-                        el.parentNode.removeChild(el);
+                        el.remove();
                     });
                 }
 

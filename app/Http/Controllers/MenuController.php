@@ -39,7 +39,14 @@ class MenuController extends Controller
     public function showMenu(Menu $menu){
        $gangen = $menu->gangen;
        $menu_products = $menu->products()->get();
-       return view('menu.showmenu', compact(['menu','menu_products','gangen']));
+       $allergieën = [];
+
+       foreach($menu->products()->get() as $product){
+           foreach($product->allergieëns as $allergie){
+               $allergieën[$allergie->id] = $allergie->naam;
+           }
+       }
+       return view('menu.showmenu', compact(['menu','menu_products','gangen','allergieën']));
     }
     public function editMenu(Menu $menu, Request $request){
 

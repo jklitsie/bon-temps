@@ -27,8 +27,10 @@ class ReserveringController extends Controller
                 $menus[$menu->id] = $menu->naam;
             }
             $reservering = Reservering::find($reservering);
-
-            return view('reservering/showReservering',compact(['reservering','klanten','menus']));
+            $reservering_menu = $reservering->menus()->get();
+            $reservering['datum'] = $reservering->getCreatedDateForReservering($reservering['datum']);
+            $count = 0;
+            return view('reservering/showReservering',compact(['reservering','klanten','menus','reservering_menu','count']));
         }else{
             $reserveringen = Reservering::paginate(15);
             foreach($reserveringen as $reservering){
@@ -52,27 +54,23 @@ class ReserveringController extends Controller
         }
         return view('reservering/newReservering',compact(['klanten','menus']));
     }
-    public function newReservering(Request $request){
 
-       $reservering = new Reservering();
-       $attributes = $request->except('_token','menu_id','menu_hoeveelheid');
-
-       $attributes['betaald'] = false;
-        dd($request);
-       $validator = Validator::make($attributes, $reservering->rules());
+    public function newReservering(Request $request)
+    {
+        $reservering = new Reservering();
+        $attributes = $request->except('_token', 'menu_id', 'menu_hoeveelheid');
+        $validator = Validator::make($attributes, $reservering->rules());
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-       $reservering = Reservering::create($attributes);
-
-       $reservering->menus()->attach($attach);
-       return redirect()->route('reserveringen');
+        $reservering = Reservering::create($attributes);
+        $reservering->menus()->attach($request->pocket);
+        return redirect()->route('reserveringen');
     }
 
     public function editReservering (Reservering $reservering, Request $request){
-
 
         $attributes = $request->except('_token','menu_id','menu_hoeveelheid');
         $validator = Validator::make($attributes, $reservering->rules());
@@ -84,6 +82,17 @@ class ReserveringController extends Controller
         }
 
         $reservering->update($attributes);
+        foreach($request->pocket as $pocket){
+            if(!$reservering->menus()->where('menu_id','=',$pocket['menu_id'])->exists()) {
+                $reservering->menus()->attach($request->pocket);
+            }else{
+                $menu = array(
+                    'menu_hoeveelheid' => $pocket['menu_hoeveelheid'],
+                );
+                $reservering->menus()->updateExistingPivot($pocket['menu_id'],$menu);
+            }
+
+        }
         return redirect()->back();
     }
 
@@ -106,8 +115,10 @@ class ReserveringController extends Controller
     public function ajaxExtraMenu()
     {
         $menus = Menu::all();
-
         return response()->json(['html' =>  \View::make('partials/extra_menu', compact('menus'))->render() ]);
-
+    }
+    public function deleteMenu(Reservering $reservering, $menu){
+       $reservering->menus()->wherePivot('menu_id','=',$menu)->detach();
+       return redirect()->back();
     }
 }

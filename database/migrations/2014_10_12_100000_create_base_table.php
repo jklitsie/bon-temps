@@ -68,7 +68,7 @@ class CreateBaseTable extends Migration
             $table->time('eind_tijd');
             $table->integer('groepsgroote');
             $table->text('notitie')->nullable();
-            $table->boolean('betaald');
+            $table->date('betaald')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

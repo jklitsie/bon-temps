@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Voeg producten toe aan menu #</div>
+                    <div class="card-header">Voeg producten toe aan menu {{$menu->naam}}</div>
                     <div class="card-body">
 
                         @include('partials.menu_overzicht')
@@ -17,11 +17,10 @@
                         <table class="table">
                             <thead>
                             <tr>
-
                                 <th scope="col">Naam</th>
                                 <th scope="col">Omschrijving</th>
                                 <th scope="col">Prijs</th>
-                                <th>opties</th>
+                                <th>Opties</th>
                             </tr>
                             </thead>
                             <tbody>

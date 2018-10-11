@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @include('partials.nav-menu')
+        @include('partials.nav-product')
     </div>
     <div class="container">
         <div class="row justify-content-center">

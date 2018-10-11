@@ -19,8 +19,6 @@ class productController extends Controller
        return view('product/newproduct',compact(['allergieën']));
     }
     public function createNewproduct(Request $request){
-
-
        $product = new product();
        $attributes['naam'] = $request['naam'];
        $attributes['omschrijving'] = $request['omschrijving'];
@@ -33,8 +31,10 @@ class productController extends Controller
                 ->withInput();
         }
        $product = Product::create($attributes);
-        foreach($request->allergieën as $allergie){
-            $product->allergieëns()->attach($allergie);
+        if($request->allergieën){
+            foreach($request->allergieën as $allergie){
+                $product->allergieëns()->attach($allergie);
+            }
         }
        return redirect()->route('products');
     }
@@ -66,8 +66,7 @@ class productController extends Controller
         {
            foreach($request->allergieën as $allergie)
            {
-               $x = $product->allergieëns()->where('allergieën_id',$allergie)->exists();
-               if(!$x){
+               if(! $product->allergieëns()->where('allergieën_id',$allergie)->exists()){
                    $product->allergieëns()->attach($allergie);
                }
            }
