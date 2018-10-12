@@ -113,13 +113,24 @@
                 let el = document.getElementById('extramenus');
                 let elSel = document.getElementById('extramenusselect');
                 let count = 1;
-                elSel.preventDefault
-                elSel.onclick = function(){
+                elSel.onclick = function(e){
+                  e.preventDefault();
                     axios.get('{{route('extraMenuRegel')}}').then(function (response) {
                         let element = document.createElement('div');
                         element.className = 'row';
+                        element.setAttribute("id", count);
                         console.log(response.data)
                         element.innerHTML = response.data.html
+
+                      // element grab by class
+                        let btnRemove = element.getElementsByClassName('btn-remove')[0];
+                        btnRemove.dataset['id'] = count;
+                        btnRemove.onclick = function(event){
+                          event.preventDefault();
+                          let rowSelect = document.getElementById(btnRemove.dataset.id);
+                          rowSelect.remove();
+                          btnRemove.preventDefault();
+                        }
                         el.appendChild(element)
                         let loadChange = document.getElementById('triggerEdit');
                         let loadChange2 = document.getElementById('triggerEditHoeveelheid');

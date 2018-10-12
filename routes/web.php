@@ -53,12 +53,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/new', 'ReserveringController@newReservering')->name('newReservering');
         Route::post('/factuur/{reservering}', 'FactuurController@newFactuur_regel')->name('newFactuur_regel');
         Route::get('/factuur/{id}/betaald', 'FactuurController@factuurBetaald')->name('factuurStatus');
-
-
         Route::get('/searchKlanten/{klantnaam}', 'ReserveringController@searchKlanten')->name('searchKlanten');
         Route::put('/edit/{reservering}', 'ReserveringController@editReservering')->name('editReservering');
         Route::get('/delete/{reservering}/{menu}', 'ReserveringController@deleteMenu')->name('deleteMenu_Reservering');
+        Route::get('/{reservering}/delete', 'ReserveringController@removeReservering')->name('deleteReservering');
         Route::get('/{reservering?}', 'ReserveringController@index')->name('reserveringen');
-        Route::get('/{reservering?}/delete', 'ReserveringController@index')->name('deleteReservering');
     });
 });
