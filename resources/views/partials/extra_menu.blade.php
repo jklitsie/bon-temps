@@ -6,7 +6,7 @@
     </select>
 </div>
 <div class="col">
-    <input id="triggerEditHoeveelheid" type="number" class="form-control ">
+    <input id="triggerEditHoeveelheid" type="number" class="form-control" required>
 </div>
 <div class="col-1">
     <a class="btn-remove" href="">Verwijder extra -</a>

@@ -24,7 +24,9 @@ class ReserveringController extends Controller
                 $klanten[$klant->id] = $klant->achternaam;
             }
             foreach ($menuGet as $menu) {
-                $menus[$menu->id] = $menu->naam;
+                if($menu->actief == 1){
+                    $menus[$menu->id] = $menu->naam;
+                }
             }
             $reservering = Reservering::find($reservering);
             $reservering_menu = $reservering->menus()->get();

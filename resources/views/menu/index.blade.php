@@ -40,10 +40,16 @@
                                     <td>
                                         <div class="switch asd" id="switch">
                                             <label>
-                                                Nee
+
                                                 {!! Form::open(['route' => ['menuToggle',$menu->id],null,'class' => 'toggle']) !!}
-                                                <input class='checkbox' type="checkbox" value="{{$menu->id}}">
-                                                <span class="lever" ></span> Aan
+                                                <input class='checkbox' type="checkbox" value="{{$menu->id}}"
+                                                       @if($menu->actief == 1)
+                                                       checked />
+                                                       @else
+                                                       unchecked />
+                                                       @endif
+
+                                                <span onclick="onClick({{$menu->id}})" class="lever" ></span>
                                                 {!! Form::close() !!}
                                             </label>
                                         </div>
@@ -74,7 +80,12 @@
 
 
             });
-
+            function onClick(e){
+                axios.get('menu/' + e + '/toggle')
+                    .then(function(response){
+                        location.reload();
+                })
+            }
 
 
         </script>

@@ -29,7 +29,7 @@
 
                                 </div>
                                 <div class="col">
-                                    <input class="form-control" name="pocket[{{$count}}][menu_hoeveelheid]" value="{{$menu->pivot->menu_hoeveelheid}}" />
+                                    <input class="form-control" name="pocket[{{$count}}][menu_hoeveelheid]" value="{{$menu->pivot->menu_hoeveelheid}}" required />
                                 </div>
                                 <div class="col-1">
                                     <a href="{{route('deleteMenu_Reservering',[$reservering->id,$menu->id])}}">delete menu +</a>
