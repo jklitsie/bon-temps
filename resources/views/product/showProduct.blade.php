@@ -18,7 +18,7 @@
                             {!!  Form::label('omschrijving', 'Menu omschrijving')!!}
                             {!! Form::textarea('omschrijving',null,['class' =>'form-control','rows' => 2]) !!}
                             {!!  Form::label('prijs', 'Menu prijs')!!}
-                            {!! Form::number('prijs',null,['class' =>'form-control','rows' => 2]) !!}
+                            {!!  Form::number('prijs', null,['class' =>'form-control','step' => '0.01','min' => '0'])!!}
                             {{--<h3>Bestaande allergieen</h3>
                             <ul>
                                 @foreach($bestaandeAllergieën as $bestaandeAllergie)
@@ -37,7 +37,6 @@
                                             @else
                                             unchecked
                                             @endif><br>
-                                    {{--{!! Form::checkbox('allergieën[]',$allergie->id,false,['class'=>'col-6 input-alternate']) !!}--}}
                                 </div>
                             @endforeach
                         </div>

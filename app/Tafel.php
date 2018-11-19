@@ -6,30 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Product;
+use App\Menu;
 
-class Menu extends Model
+class Tafel extends Model
 {
     use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'naam', 'omschrijving', 'prijs', 'gangen'
+        'naam', 'stoelen',
     ];
 
     public function rules()
     {
         return [
-            'naam' => 'required|string|min:0|max:64',
-            'omschrijving' => 'required|string|min:0|max:128',
-            'prijs' => 'numeric|required',
+            'naam' => 'required',
+            'stoelen' => 'required','integer',
         ];
     }
-
     /**
+     *
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -38,14 +38,8 @@ class Menu extends Model
     protected $hidden = [
 
     ];
-
     // Relationships
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'menu_product')->withPivot('gang');
-    }
-    public function reserverings()
-    {
-        return $this->belongsToMany('App\Reservering','reservering_menu');
+    public function reserveringen(){
+        return $this->belongsToMany('App\Menu','reservering_tafel');
     }
 }

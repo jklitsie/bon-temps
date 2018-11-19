@@ -12,7 +12,7 @@ class MenuController extends Controller
 {
    public function index()
     {
-        $menus = Menu::all();
+        $menus = Menu::paginate(15);
         return view('menu/index', compact(['menus']));
     }
     public function showCreateNewMenu(){
@@ -66,6 +66,7 @@ class MenuController extends Controller
         return redirect()->back();
     }
     public function removeMenu(Menu $menu){
+       $menu->products()->detach();
        $menu->delete();
        return redirect()->back();
     }
@@ -82,6 +83,7 @@ class MenuController extends Controller
     public function addMenuProduct(Menu $menu, Product $product, Request $request){
        //check if exists
         $exists = DB::table('menu_product')
+            ->where('menu_id','=', $menu->id)
             ->where('product_id', '=', $product->id)
             ->where('gang', '=', $request['gang'])
             ->exists();

@@ -13,6 +13,7 @@ use Illuminate\Http\Response;
 
 class ReserveringController extends Controller
 {
+    // Checkt of de route index is of index/1 met een request. en geeft de data als die vraag is
     public function index($reservering = false)
     {
         if ($reservering) {
@@ -41,7 +42,7 @@ class ReserveringController extends Controller
             return view('reservering/index', compact(['reserveringen']));
         }
     }
-
+    // Get view nieuwe reservering
     public function showNewReservering()
     {
         $data = Klant::all(['id', 'achternaam']);
@@ -56,10 +57,11 @@ class ReserveringController extends Controller
         }
         return view('reservering/newReservering', compact(['klanten', 'menus']));
     }
-
+    // Post New Reservering naar server
     public function newReservering(Request $request)
     {
         $reservering = new Reservering();
+
         $attributes = $request->except('_token', 'menu_id', 'menu_hoeveelheid');
         $validator = Validator::make($attributes, $reservering->rules());
         if ($validator->fails()) {
@@ -71,7 +73,7 @@ class ReserveringController extends Controller
         $reservering->menus()->attach($request->pocket);
         return redirect()->route('reserveringen');
     }
-
+    //Post bestaande reservering
     public function editReservering(Reservering $reservering, Request $request)
     {
 
@@ -97,7 +99,7 @@ class ReserveringController extends Controller
         }
         return redirect()->back();
     }
-
+    // Delete reservering by ID
     public function removeReservering(Reservering $reservering)
     {
         if($reservering->menus()->get()){
@@ -107,7 +109,7 @@ class ReserveringController extends Controller
         return redirect()->back();
     }
 
-
+    // Get klanten voor ajax search (is overbodig geworden)
     public function searchKlanten($klantnaam)
     {
         $klanten = Klant::where('voornaam', 'LIKE', '%' . $klantnaam . '%')->get();
@@ -117,13 +119,13 @@ class ReserveringController extends Controller
             'klanten' => $klanten
         ]);
     }
-
+    // Get Server reactie voor ajax call op reservering
     public function ajaxExtraMenu()
     {
         $menus = Menu::all();
         return response()->json(['html' => \View::make('partials/extra_menu', compact('menus'))->render()]);
     }
-
+    // Get voor het deleten van een reservering-menu(koppeltabel)
     public function deleteMenu(Reservering $reservering, $menu)
     {
         $reservering->menus()->wherePivot('menu_id', '=', $menu)->detach();

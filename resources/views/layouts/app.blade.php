@@ -9,8 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
 
     <!-- Fonts -->
@@ -91,11 +89,11 @@
 </div>
 </body>
 <!-- Scripts -->
-@stack('footer-scripts')
+
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 <script src="{{ asset('js/mdb.js') }}"></script>
-{{--<script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
+@stack('footer-scripts')
 </html>

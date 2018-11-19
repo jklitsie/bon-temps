@@ -11,7 +11,6 @@ use App\Menu;
 class Product extends Model
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -24,9 +23,9 @@ class Product extends Model
     public function rules()
     {
         return [
-            'naam' => 'required',
-            'omschrijving' => 'required',
-            'prijs' => 'required',
+            'naam' => 'required|string|min:0|max:64',
+            'omschrijving' => 'required|string|min:0|max:128',
+            'prijs' => 'required|integer',
         ];
     }
     /**

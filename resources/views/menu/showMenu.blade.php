@@ -19,7 +19,7 @@
                                 {!!  Form::label('gangen', 'Gangen')!!}
                                 {!! Form::number('gangen',null,['class' =>'form-control','rows' => 2]) !!}
                                 {!!  Form::label('prijs', 'Menu prijs')!!}
-                                {!! Form::number('prijs',null,['class' =>'form-control','rows' => 2]) !!}
+                                {!!  Form::number('prijs', null,['class' =>'form-control','step' => '0.01','min' => '0'])!!}
                                 {!! Form::submit('+ bewerk', ['class'=>'btn btn-red']) !!}
                             <a href="{!! route('showAddProductMenu',$menu->id) !!}" class="btn btn-green"> + voeg producten toe</a>
                             {!! Form::close() !!}
@@ -32,7 +32,6 @@
                                         @endif
                                     @endforeach
                                 @endfor
-
                             </div>
                         </div>
 

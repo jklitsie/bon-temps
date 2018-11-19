@@ -17,7 +17,7 @@
                             {!!  Form::label('omschrijving', 'product omschrijving')!!}
                             {!! Form::textarea('omschrijving',null,['class' =>'form-control','rows' => 2]) !!}
                             {!!  Form::label('prijs', 'product prijs')!!}
-                            {!! Form::number('prijs',null,['class' =>'form-control','rows' => 2]) !!}
+                            {!!  Form::number('prijs', null,['class' =>'form-control','step' => '0.01','min' => '0'])!!}
                         </div>
                         <div class="col-6">
                             <h4>Allergieën</h4>

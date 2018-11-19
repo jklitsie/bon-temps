@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Alle menu's</div>
+                    <div class="card-header">Klant info</div>
                     <div class="card-body">
                         {!! Form::model($klant ,['editKlant', $klant->id ,null, 'class' =>'form-group', 'method' => 'put']) !!}
                             {!!  Form::label('naam', 'Klant voornaam', null, ['class' =>'form-control'] )!!}

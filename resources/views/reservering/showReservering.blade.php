@@ -85,7 +85,6 @@
 
 @endsection
 @push('footer-scripts')
-    {{--@TODO--}}
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function(){
         let el = document.getElementById('extramenus');

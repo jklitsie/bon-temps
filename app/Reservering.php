@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Menu;
+use App\Tafel;
 use App\Klant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,6 +70,9 @@ class Reservering extends Model
     }
     public function menus(){
         return $this->belongsToMany('App\Menu','reservering_menu')->withPivot('menu_hoeveelheid');
+    }
+    public function tafels(){
+        return $this->belongsToMany('App\Tafel','reservering_tafel');
     }
 //    public function tafel(){
 //        return $this->HasOne('App\Tafel');

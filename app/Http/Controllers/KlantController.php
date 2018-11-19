@@ -25,7 +25,7 @@ class klantController extends Controller
 
        $klant = new klant();
        $attributes = $request->except('_token');
-       $validator = Validator::make($attributes, $klant->rules());
+       $validator = Validator::make($attributes, $klant->rules('POST'));
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -42,7 +42,7 @@ class klantController extends Controller
 
         $attributes = $request->except('_token');
 
-        $validator = Validator::make($attributes, $klant->rules());
+        $validator = Validator::make($attributes, $klant->rules('PUT',$klant));
 
         if ($validator->fails()) {
             return redirect()->back()
@@ -53,7 +53,7 @@ class klantController extends Controller
         return redirect()->back();
     }
 
-    public function removeProduct(Klant $klant)
+    public function removeKlant(Klant $klant)
     {
         $klant->delete();
         return redirect()->back();

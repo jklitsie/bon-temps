@@ -9,15 +9,18 @@ use Illuminate\Http\Request;
 use Validator;
 class productController extends Controller
 {
+    //Index van alle producten
    public function index()
     {
         $products = Product::all();
         return view('product/index', compact(['products']));
     }
+    // Returned view om een nieuw product aan te maken
     public function showCreateNewProduct(){
        $allergieën = Allergieën::all();
        return view('product/newproduct',compact(['allergieën']));
     }
+    //Verwerkt Post van een nieuwe product
     public function createNewproduct(Request $request){
        $product = new product();
        $attributes['naam'] = $request['naam'];
@@ -38,7 +41,7 @@ class productController extends Controller
         }
        return redirect()->route('products');
     }
-
+    //Showed het product en alle Allergieën in
     public function showProduct(Product $product)
     {
         $allergieën = Allergieën::all();
@@ -49,6 +52,8 @@ class productController extends Controller
         }
        return view('product.showproduct', compact(['product','allergieën','checkArray']));
     }
+    //Verwerkt Post van de bewerking van een bestaande product
+
     public function editProduct (Product $product, Request $request){
 
         $attributes['naam'] = $request['naam'];
@@ -74,6 +79,7 @@ class productController extends Controller
        $product->update($attributes);
         return redirect()->back();
     }
+    //Delete product met #id
     public function removeProduct(Product $product){
        $product->allergieëns()->detach();
        $product->delete();

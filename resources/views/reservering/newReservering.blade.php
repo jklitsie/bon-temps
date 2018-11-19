@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         @include('partials.nav-reservering')
@@ -19,25 +18,8 @@
                                 <div class="col">
                                     <a  href="{{route('newKlant')}}">Nieuwe Klant?</a>
                                 </div>
-
-
                             </div>
-                            {!!  Form::label('menu_id', 'Selecteer menu')!!}
-                            <div class="row">
-                                <div class="col-9">
-                                    {!! Form::select('pocket[0][menu_id]',$menus,null,['class' =>'custom-select']) !!}
-                                </div>
-                                <div class="col">
-                                    {!! Form::number('pocket[0][menu_hoeveelheid]',null,['class' =>'form-control ']) !!}
-                                </div>
-                                <div class="col-1">
-                                    <a href='#'id="extramenusselect">Extra menu +</a>
-                                </div>
-                            </div>
-                            <div id="extramenus">
-
-                            </div>
-                            <div class="row">
+                            <div class="row form-group">
                                 <div class="col">
                                     {!!  Form::label('datum', 'Datum')!!}
                                     {!! Form::date('datum',null,['class' =>'form-control']) !!}
@@ -47,8 +29,12 @@
                                     {!! Form::time('start_tijd',null,['class' =>'form-control']) !!}
                                 </div>
                                 <div class="col">
+                                    {!!  Form::label('extra_tijd', 'Verblijfsduur')!!}
+                                    {!! Form::number('extra_tijd',null,['class' =>'form-control ']) !!}
+                                </div>
+                                <div class="col">
                                     {!!  Form::label('eind_tijd', 'eind Tijd')!!}
-                                    {!! Form::time('eind_tijd',null,['class' =>'form-control']) !!}
+                                    {!! Form::time('eind_tijd',null,['class' =>'form-control','readonly']) !!}
                                 </div>
                             </div>
 
@@ -58,6 +44,21 @@
                                     {!! Form::number('groepsgroote',null,['class' =>'form-control']) !!}
                                 </div>
                             </div>
+                        {!!  Form::label('menu_id', 'Selecteer menu')!!}
+                        <div class="row">
+                            <div class="col-9">
+                                {!! Form::select('pocket[0][menu_id]',$menus,null,['class' =>'custom-select']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::number('pocket[0][menu_hoeveelheid]',null,['class' =>'form-control ']) !!}
+                            </div>
+                            <div class="col-1">
+                                <a href='#'id="extramenusselect">Extra menu +</a>
+                            </div>
+                        </div>
+                        <div id="extramenus">
+
+                        </div>
                             {!!  Form::label('notitie', 'Notitie')!!}
                             <div class="row">
                                 <div class="col">
@@ -83,6 +84,7 @@
     </div>
     @push('footer-scripts')
         {{--@TODO--}}
+        <script src="/js/moment.js" type="text/javascript"></script>
         <script type="text/javascript">
             function searchUsers(){
                 const search = document.getElementsByClassName('naam')[0].value;
@@ -108,6 +110,12 @@
             }
             function postUserValue(value){
                 console.log(value)
+            }
+            function calcTime(){
+              let eind_time = document.getElementById('eind_tijd');
+              let extra_time = document.getElementById('extra_tijd').value;
+              let final_time = moment('2018-01-01 ' + start_tijd.value).add(extra_time,'h');
+              eind_time.value = final_time.format('HH:mm');
             }
             document.addEventListener('DOMContentLoaded', function(){
                 let el = document.getElementById('extramenus');
@@ -141,6 +149,21 @@
                         count++;
                     })
                 }
+
+
+                //Time handling
+              let start_time = document.getElementById('start_tijd');
+              let extra_time = document.getElementById('extra_tijd');
+              extra_time.addEventListener("focusout", () => {
+                //@todo check if extra time is value else red border
+                if(extra_time.value){
+                    extra_time = document.getElementById('extra_tijd').classList.add('invalid-input');
+                }
+                calcTime();
+              });
+              start_time.addEventListener("focusout", () => {
+                calcTime();
+            });
             });
 
 

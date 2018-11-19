@@ -18,7 +18,7 @@
                             {!!  Form::label('gangen', 'Gangen')!!}
                             {!! Form::number('gangen',null,['class' =>'form-control','rows' => 2]) !!}
                             {!!  Form::label('prijs', 'Menu prijs')!!}
-                            {!! Form::number('prijs',null,['class' =>'form-control','rows' => 2]) !!}
+                        {!!  Form::number('prijs', null,['class' =>'form-control','step' => '0.01','min' => '0'])!!}
                             {!! Form::submit('Maak aan!!', ['class'=>'btn btn-red']) !!}
                         {!! Form::close() !!}
                         @if ($errors->any())
