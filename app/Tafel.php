@@ -18,14 +18,14 @@ class Tafel extends Model
      * @var array
      */
     protected $fillable = [
-        'naam', 'stoelen',
+        'stoelen','tafel_nummer'
     ];
 
     public function rules()
     {
         return [
-            'naam' => 'required',
             'stoelen' => 'required','integer',
+            'tafel_nummer' => 'required','integer',
         ];
     }
     /**

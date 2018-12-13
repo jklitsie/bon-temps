@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Allergieën;
 use App\Klant;
+use App\Tafel;
 use App\Product;
 use App\Menu;
 use App\Reservering;
@@ -25,7 +26,9 @@ class ReserveringController extends Controller
                 $klanten[$klant->id] = $klant->achternaam;
             }
             foreach ($menuGet as $menu) {
-                $menus[$menu->id] = $menu->naam;
+                if($menu->actief == 1){
+                    $menus[$menu->id] = $menu->naam;
+                }
             }
             $reservering = Reservering::find($reservering);
             $reservering_menu = $reservering->menus()->get();
@@ -47,6 +50,7 @@ class ReserveringController extends Controller
     {
         $data = Klant::all(['id', 'achternaam']);
         $menuGet = Menu::all(['id', 'naam']);
+        $tafelGet = Tafel::all(['id','tafel_nummer']);
         $menus = [];
         $klanten = [];
         foreach ($data as $klant) {
@@ -55,13 +59,13 @@ class ReserveringController extends Controller
         foreach ($menuGet as $menu) {
             $menus[$menu->id] = $menu->naam;
         }
-        return view('reservering/newReservering', compact(['klanten', 'menus']));
+        return view('reservering/newReservering', compact(['klanten', 'menus','tafelGet']));
     }
     // Post New Reservering naar server
     public function newReservering(Request $request)
     {
-        $reservering = new Reservering();
 
+        $reservering = new Reservering();
         $attributes = $request->except('_token', 'menu_id', 'menu_hoeveelheid');
         $validator = Validator::make($attributes, $reservering->rules());
         if ($validator->fails()) {
@@ -70,13 +74,14 @@ class ReserveringController extends Controller
                 ->withInput();
         }
         $reservering = Reservering::create($attributes);
+        $reservering->tafels()->attach($request->tafel);
         $reservering->menus()->attach($request->pocket);
         return redirect()->route('reserveringen');
     }
     //Post bestaande reservering
     public function editReservering(Reservering $reservering, Request $request)
     {
-
+        dd($request);
         $attributes = $request->except('_token', 'menu_id', 'menu_hoeveelheid');
         $validator = Validator::make($attributes, $reservering->rules());
         if ($validator->fails()) {

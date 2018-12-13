@@ -54,6 +54,7 @@
                 <li class="nav-item"><a href="{{route('menus')}}" class="nav-link">Menu's</a></li>
                 <li class="nav-item"><a href="{{route('products')}}" class="nav-link">Products</a></li>
                 <li class="nav-item"><a href="{{route('klanten')}}" class="nav-link">Klanten</a></li>
+                <li class="nav-item"><a href="{{route('tafels')}}" class="nav-link">Tafels</a></li>
                 @guest
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>

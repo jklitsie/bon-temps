@@ -22,7 +22,7 @@ mix
     .js('resources/assets/js/bootstrap.js',         'public/js/bootstrap.js')
     .js('resources/assets/js/popper.min.js',        'public/js/popper.min.js')
     .js('resources/assets/js/mdb.js',           'public/js/mdb.js')
-
+    .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/scss/mdb.scss',             'public/css')
     .sass('resources/assets/scss/bootstrap/bootstrap.scss',             'public/css/bootstrap.css')
 

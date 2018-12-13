@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/tafels', 'TafelController@Index');
+Route::post('/tafel/availability', 'TafelController@getTafelsBetweenTime');
+Route::post('/tafels', 'TafelController@createTafel');
+Route::post('/tafel/{tafel}', 'TafelController@editTafel');
+Route::post('/tafel/{tafel}/delete', 'TafelController@deleteTafel');

@@ -17,7 +17,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'naam', 'omschrijving', 'prijs', 'gangen'
+        'naam', 'omschrijving', 'prijs', 'gangen','actief'
     ];
 
     public function rules()

@@ -54,15 +54,20 @@ class CreateBaseTable extends Migration
 
         Schema::create('tafels', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tafel_nummer');
+            $table->integer('tafel_nummer')->unique();
             $table->integer('stoelen');
             $table->timestamps();
         });
-
+        Schema::create('reservering_tafel', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('reservering_id');
+            $table->integer('tafel_id');
+            $table->dateTime('datum');
+            $table->timestamps();
+        });
         Schema::create('reserverings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('klant_id');
-            $table->integer('tafel_id')->nullable();
             $table->dateTime('datum');
             $table->time('start_tijd');
             $table->time('eind_tijd');

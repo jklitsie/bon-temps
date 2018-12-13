@@ -109,8 +109,19 @@ class MenuController extends Controller
         return redirect()->back();
     }
     public function ToggleMenu(Menu $menu){
-       if($menu->actief == 1){
-           $menu->actief->update(0);
+       if($menu->actief == 0 ){
+           $attributes['actief'] = 1;
+           $menu->update($attributes);
+           return response()->json([
+               'status' => 'asd',
+           ]);
+       }
+       else{
+           $attributes['actief'] = 0;
+           $menu->update($attributes);
+           return response()->json([
+               'status' => 'das',
+           ]);
        }
     }
 }

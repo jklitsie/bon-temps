@@ -19,31 +19,7 @@
                                     <a  href="{{route('newKlant')}}">Nieuwe Klant?</a>
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <div class="col">
-                                    {!!  Form::label('datum', 'Datum')!!}
-                                    {!! Form::date('datum',null,['class' =>'form-control']) !!}
-                                </div>
-                                <div class="col">
-                                    {!!  Form::label('start_tijd', 'Start Tijd')!!}
-                                    {!! Form::time('start_tijd',null,['class' =>'form-control']) !!}
-                                </div>
-                                <div class="col">
-                                    {!!  Form::label('extra_tijd', 'Verblijfsduur')!!}
-                                    {!! Form::number('extra_tijd',null,['class' =>'form-control ']) !!}
-                                </div>
-                                <div class="col">
-                                    {!!  Form::label('eind_tijd', 'eind Tijd')!!}
-                                    {!! Form::time('eind_tijd',null,['class' =>'form-control','readonly']) !!}
-                                </div>
-                            </div>
-
-                            {!!  Form::label('groepsgroote', 'Groepsgroote')!!}
-                            <div class="row">
-                                <div class="col">
-                                    {!! Form::number('groepsgroote',null,['class' =>'form-control']) !!}
-                                </div>
-                            </div>
+                        <visueel-tafels></visueel-tafels>
                         {!!  Form::label('menu_id', 'Selecteer menu')!!}
                         <div class="row">
                             <div class="col-9">
@@ -65,7 +41,7 @@
                                     {!! Form::textarea('notitie',null,['rows'=>'2','class' =>'form-control']) !!}
                                 </div>
                             </div>
-                            {!! Form::submit('Maak aan!!', ['class'=>'btn btn-red']) !!}
+                            {!! Form::submit('Maak aan!!', ['class'=>'btn btn-red', 'id' => 'submitIets']) !!}
                         {!! Form::close() !!}
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -83,8 +59,6 @@
         </div>
     </div>
     @push('footer-scripts')
-        {{--@TODO--}}
-        <script src="/js/moment.js" type="text/javascript"></script>
         <script type="text/javascript">
             function searchUsers(){
                 const search = document.getElementsByClassName('naam')[0].value;
@@ -111,13 +85,24 @@
             function postUserValue(value){
                 console.log(value)
             }
-            function calcTime(){
-              let eind_time = document.getElementById('eind_tijd');
-              let extra_time = document.getElementById('extra_tijd').value;
-              let final_time = moment('2018-01-01 ' + start_tijd.value).add(extra_time,'h');
-              eind_time.value = final_time.format('HH:mm');
-            }
             document.addEventListener('DOMContentLoaded', function(){
+
+                //Tafel selectie script
+                let extraTafels = 1;
+                let tafelSelect = document.getElementById('groepsgrootte');
+                let tafelHoeveelheid = document.getElementById('tafelCount');
+                tafelSelect.addEventListener("focusout", () => {
+                  if(tafelSelect.value >= 6){
+                    let extraTafels = tafelSelect.value/6
+                    tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' +Math.ceil(extraTafels);
+
+                  }else{
+                    tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' + extraTafels;
+                  }
+                });
+                // Eind tafel selectiescript
+
+                //Extramenu script
                 let el = document.getElementById('extramenus');
                 let elSel = document.getElementById('extramenusselect');
                 let count = 1;
@@ -149,21 +134,9 @@
                         count++;
                     })
                 }
+              //eind extra menu script
 
 
-                //Time handling
-              let start_time = document.getElementById('start_tijd');
-              let extra_time = document.getElementById('extra_tijd');
-              extra_time.addEventListener("focusout", () => {
-                //@todo check if extra time is value else red border
-                if(extra_time.value){
-                    extra_time = document.getElementById('extra_tijd').classList.add('invalid-input');
-                }
-                calcTime();
-              });
-              start_time.addEventListener("focusout", () => {
-                calcTime();
-            });
             });
 
 

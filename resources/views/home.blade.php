@@ -13,7 +13,20 @@
         </div>
         <div class="col-6">
             <div class="card">
-                <div class="card-header">Reserveringen van vandaag</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3">
+                            Reserveringen van vandaag
+                        </div>
+                        <div class="col">
+                            <form method="post" action="/changereserveringdate">
+                                @csrf
+                                <input type="date" name="datum "/>
+                                <button type="submit" class="btn btn-success">Verander datum</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">

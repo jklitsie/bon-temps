@@ -28,4 +28,10 @@ class HomeController extends Controller
 
         return view('home',compact(['reserveringen']));
     }
+    public function changeReserveringDate(Request $request) {
+        dd($request);
+        $reserveringen = Reservering::where('datum');
+
+        return view('home',compact(['reserveringen']));
+    }
 }

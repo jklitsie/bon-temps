@@ -14,7 +14,9 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::post('/changereserveringdate','HomeController@changeReserveringDate')->name('changeReserveringDate');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tafels','TafelController@returnIndex')->name('tafels');
 Route::group(['middleware' => ['auth']], function() {
     Route::prefix('menu')->group(function () {
         Route::get('/', 'MenuController@Index')->name('menus');

@@ -7,6 +7,8 @@ require('./bootstrap');
 Vue.config.productionTip = false;
 Vue.config.debug = true;
 
+
+
 Vue.filter('time', timestamp => {
     return new Date(timestamp).toLocaleTimeString()
 })
