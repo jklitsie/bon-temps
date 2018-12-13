@@ -7,6 +7,10 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 <div class="card-body">
+                    <button class="d-inline-block btn btn-success col-5" type="submit" class="">Snelle opties 1</button>
+                    <button class="d-inline-block btn btn-success col-5" type="submit" class="">Snelle opties 2</button>
+                    <button class="d-inline-block btn btn-success col-5" type="submit" class="">Snelle opties 3</button>
+                    <button class="d-inline-block btn btn-success col-5" type="submit" class="">Snelle opties 4</button>
 
                 </div>
             </div>
@@ -14,18 +18,12 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-3">
-                            Reserveringen van vandaag
+
+                        <div class="float-left">
+                            <h2>Reserveringen</h2>
                         </div>
-                        <div class="col">
-                            <form method="post" action="/changereserveringdate">
-                                @csrf
-                                <input type="date" name="datum "/>
-                                <button type="submit" class="btn btn-success">Verander datum</button>
-                            </form>
-                        </div>
-                    </div>
+
+
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -56,6 +54,14 @@
                         <hr />
                         @endif
                     @endforeach
+
+                </div>
+                <div class="card-footer">
+                        <form method="post" action="/changereserveringdate">
+                            @csrf
+                            <input class="d-inline-block form-control col-6" type="date" name="datum"/>
+                            <button class="d-inline-block btn btn-success col-5" type="submit" class="">Verander datum</button>
+                        </form>
 
                 </div>
             </div>

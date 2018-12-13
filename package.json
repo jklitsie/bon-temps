@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "hammerjs": "^2.0.8",
+        "moment": "^2.23.0",
         "vue-moment": "^4.0.0"
     }
 }

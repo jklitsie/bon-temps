@@ -29,9 +29,11 @@ class HomeController extends Controller
         return view('home',compact(['reserveringen']));
     }
     public function changeReserveringDate(Request $request) {
-        dd($request);
-        $reserveringen = Reservering::where('datum');
-
+        $adjustedTime = Carbon::parse($request['datum'])->format('Y-m-d 00:00:00');
+        $reserveringen = Reservering::where('datum','=',$adjustedTime)->get();
+        foreach($reserveringen as $reservering){
+           $reservering['start_tijd'] = Carbon::parse($reservering['start_tijd'])->format('H:m');
+        }
         return view('home',compact(['reserveringen']));
     }
 }

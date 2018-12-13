@@ -3,16 +3,16 @@
         <div class="row form-group">
             <div class="col">
                 <label for="groepsgrootte" class="form-label">Groepsgrootte</label>
-                <input type="number" name="groepsgrootte" :class="[{'is-invalid' : isInvalid },'form-control']" id="groepsgrootte"
+                <input type="number" name="groepsgroote" :class="[{'is-invalid' : isInvalid },'form-control']" id="groepsgrootte"
                        v-model="groepsgrootte"/>
             </div>
             <div class="col">
                 <label for="datum">Datum</label>
-                <input type="date" :class="[{'is-invalid' : isInvalid },'form-control']" v-model="datum"/>
+                <input name='datum' type="date" :class="[{'is-invalid' : isInvalid },'form-control']" v-model="datum"/>
             </div>
             <div class="col">
                 <label for="time">Start tijd</label>
-                <input type="time" @blur="calcTime" :class="[{'is-invalid' : isInvalid },'form-control']" v-model="startTijd"/>
+                <input name="start_tijd" type="time" @blur="calcTime" :class="[{'is-invalid' : isInvalid },'form-control']" v-model="startTijd"/>
             </div>
             <div class="col">
                 <label for="eind_tijd">Eind tijd</label>
@@ -22,12 +22,17 @@
         <div class="row form-group">
             <div class="col" v-if="visueelTafels">
                 <label for="groepsgrootte" class="form-label">Tafel selectie</label>
-                <select id='tafelselect' name="tafel[]" class="custom-select form-control" multiple>
+                <!--<select id='tafelselect' name="tafel[]" class="custom-select form-control" multiple>
                     <option v-for="tafel in tafels" :value="tafel.tafel_nummer" :disabled="!tafel.bezet">
                         Tafel :{{tafel.tafel_nummer}} stoelen:
                         {{tafel.stoelen}}
                     </option>
-                </select>
+                </select>-->
+                <div class="custom-control custom-checkbox custom-control-inline" v-for="tafel in tafels" :value="tafel.tafel_nummer" >
+                    <input class="custom-control-input" type="checkbox" name="tafel[]" :disabled="!tafel.bezet">
+                    Tafel :{{tafel.tafel_nummer}} stoelen:
+                    {{tafel.stoelen}}
+                </div>
             </div>
         </div>
     </div>
