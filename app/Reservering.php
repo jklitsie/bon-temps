@@ -61,6 +61,9 @@ class Reservering extends Model
     protected $hidden = [
 
     ];
+    protected $appends = [
+      'tafels'
+    ];
     // Relationships
     public function klant(){
         return $this->belongsTo('App\Klant');

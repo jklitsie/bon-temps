@@ -30,7 +30,8 @@ class HomeController extends Controller
     }
     public function changeReserveringDate(Request $request) {
         $adjustedTime = Carbon::parse($request['datum'])->format('Y-m-d 00:00:00');
-        $reserveringen = Reservering::where('datum','=',$adjustedTime)->get();
+        $reserveringen = Reservering::where('datum','=',$adjustedTime)->with('tafels')->get();
+        dd($reserveringen);
         foreach($reserveringen as $reservering){
            $reservering['start_tijd'] = Carbon::parse($reservering['start_tijd'])->format('H:m');
         }

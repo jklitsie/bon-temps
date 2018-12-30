@@ -28,8 +28,8 @@
                         {{tafel.stoelen}}
                     </option>
                 </select>-->
-                <div class="custom-control custom-checkbox custom-control-inline" v-for="tafel in tafels" :value="tafel.tafel_nummer" >
-                    <input class="custom-control-input" type="checkbox" name="tafel[]" :disabled="!tafel.bezet">
+                <div class="custom-control  custom-control-inline" v-for="tafel in tafels" >
+                    <input class="custom-checkbox" type="checkbox" name="tafel[]" :value="tafel.tafel_nummer" :disabled="tafel.bezet">
                     Tafel :{{tafel.tafel_nummer}} stoelen:
                     {{tafel.stoelen}}
                 </div>

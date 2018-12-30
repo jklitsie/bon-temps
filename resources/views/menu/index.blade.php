@@ -44,12 +44,12 @@
                                                 {!! Form::open(['route' => ['menuToggle',$menu->id],null,'class' => 'toggle']) !!}
                                                 <input class='checkbox' type="checkbox" value="{{$menu->id}}"
                                                        @if($menu->actief == 1)
-                                                       checked />
-                                                       @else
-                                                       unchecked />
-                                                       @endif
+                                                       checked/>
+                                                @else
+                                                    unchecked />
+                                                @endif
 
-                                                <span onclick="onClick({{$menu->id}})" class="lever" ></span>
+                                                <span onclick="onClick({{$menu->id}})" class="lever"></span>
                                                 {!! Form::close() !!}
                                             </label>
                                         </div>
@@ -58,8 +58,10 @@
                                         {{$menu->gangen}}
                                     </td>
                                     <td>
-                                        <a href="{{route('editMenu', $menu->id)}}" class="btn btn-primary">Bewerk menu</a>
-                                        <a href="{{route('deleteMenu', $menu->id)}}" class="btn btn-primary">Verwijder menu</a>
+                                        <a href="{{route('editMenu', $menu->id)}}" class="btn btn-primary">Bewerk
+                                            menu</a>
+                                        <a href="{{route('deleteMenu', $menu->id)}}" class="btn btn-primary">Verwijder
+                                            menu</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -75,19 +77,17 @@
 
 
     @push('footer-scripts')
-        {{--@TODO--}}
         <script type="text/javascript">
-
-            document.addEventListener('DOMContentLoaded', function(){
+            document.addEventListener('DOMContentLoaded', function () {
 
             });
 
 
-            function onClick(e){
+            function onClick(e) {
                 axios.get('menu/' + e + '/toggle')
-                    .then(function(response){
+                    .then(function (response) {
                         location.reload();
-                })
+                    })
             }
         </script>
     @endpush

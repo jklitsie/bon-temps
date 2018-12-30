@@ -32769,19 +32769,16 @@ var render = function() {
               _vm._l(_vm.tafels, function(tafel) {
                 return _c(
                   "div",
-                  {
-                    staticClass:
-                      "custom-control custom-checkbox custom-control-inline",
-                    attrs: { value: tafel.tafel_nummer }
-                  },
+                  { staticClass: "custom-control  custom-control-inline" },
                   [
                     _c("input", {
-                      staticClass: "custom-control-input",
+                      staticClass: "custom-checkbox",
                       attrs: {
                         type: "checkbox",
                         name: "tafel[]",
-                        disabled: !tafel.bezet
-                      }
+                        disabled: tafel.bezet
+                      },
+                      domProps: { value: tafel.tafel_nummer }
                     }),
                     _vm._v(
                       "\n                Tafel :" +
@@ -43938,7 +43935,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
-
+  window.axios = __webpack_require__("./node_modules/axios/index.js");
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);

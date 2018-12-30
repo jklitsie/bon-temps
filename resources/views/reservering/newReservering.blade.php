@@ -62,11 +62,7 @@
         <script type="text/javascript">
             function searchUsers(){
                 const search = document.getElementsByClassName('naam')[0].value;
-                const path = document.getElementsByClassName('searchusers')[0];
-                
-                while (path.firstChild) {
-                    path.removeChild(path.firstChild);
-                }
+
                 axios.get('searchKlanten/' + search)
                     .then(response => {
 

@@ -8,6 +8,7 @@ use App\Tafel;
 use App\Product;
 use App\Menu;
 use App\Reservering;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Http\Response;
@@ -74,7 +75,19 @@ class ReserveringController extends Controller
                 ->withInput();
         }
         $reservering = Reservering::create($attributes);
-        $reservering->tafels()->attach($request->tafel);
+        $tafelTijdstip = Carbon::parse($request->start_tijd);
+        $tafelDatum = Carbon::parse($request->datum);
+        $tafelDatum->addHour($tafelTijdstip->hour);
+        $tafelDatum->addMinute($tafelTijdstip->minute);
+
+        foreach ($request->tafel as $tafel) {
+            $tafelArr[] = array(
+                'reservering_id' => $reservering->id,
+                'tafel_id' => $tafel,
+                'datum' => $tafelDatum->toDateTimeString()
+            );
+            $reservering->tafels()->attach($tafelArr);
+        }
         $reservering->menus()->attach($request->pocket);
         return redirect()->route('reserveringen');
     }
