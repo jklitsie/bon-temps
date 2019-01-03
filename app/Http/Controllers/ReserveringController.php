@@ -80,14 +80,14 @@ class ReserveringController extends Controller
         $tafelDatum->addHour($tafelTijdstip->hour);
         $tafelDatum->addMinute($tafelTijdstip->minute);
 
-        foreach ($request->tafel as $tafel) {
-            $tafelArr[] = array(
+        foreach ($request->tafel as $tafelId) {
+            $tafelArr[] = [
                 'reservering_id' => $reservering->id,
-                'tafel_id' => $tafel,
+                'tafel_id' => $tafelId,
                 'datum' => $tafelDatum->toDateTimeString()
-            );
-            $reservering->tafels()->attach($tafelArr);
+            ];
         }
+        $reservering->tafels()->attach($tafelArr);
         $reservering->menus()->attach($request->pocket);
         return redirect()->route('reserveringen');
     }
