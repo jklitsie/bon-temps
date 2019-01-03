@@ -65,7 +65,6 @@ class ReserveringController extends Controller
     // Post New Reservering naar server
     public function newReservering(Request $request)
     {
-//        dd($request);
         $reservering = new Reservering();
         $attributes = $request->except('_token', 'menu_id', 'menu_hoeveelheid');
         $validator = Validator::make($attributes, $reservering->rules());

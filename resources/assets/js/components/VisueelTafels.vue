@@ -65,12 +65,11 @@
       },
       getTafelsWithinTime(dataSet) {
         axios.post('/api/tafel/availability', dataSet).then(response => {
-          // console.log(response);
           response.data.forEach(data => {
             this.tafels.forEach(tafel => {
               tafel.bezet = false;
-              console.log(data);
               if(tafel.id == data){
+                console.log(data);
                 tafel.bezet = true;
               }
             });
