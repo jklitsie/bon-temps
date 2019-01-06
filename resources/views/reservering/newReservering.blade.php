@@ -90,10 +90,10 @@
                 tafelSelect.addEventListener("focusout", () => {
                   if(tafelSelect.value >= 6){
                     let extraTafels = tafelSelect.value/6
-                    tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' +Math.ceil(extraTafels);
+                    // tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' +Math.ceil(extraTafels);
 
                   }else{
-                    tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' + extraTafels;
+                    //tafelHoeveelheid.innerText = 'Tafel Hoeveelheid : ' + extraTafels;
                   }
                 });
                 // Eind tafel selectiescript
