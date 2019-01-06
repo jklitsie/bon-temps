@@ -24,16 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $reserveringen = Reservering::where('datum','=', Carbon::today())->get();
+        $reserveringen = Reservering::where('datum','=', Carbon::today())->with('tafels')->get();
 
         return view('home',compact(['reserveringen']));
     }
     public function changeReserveringDate(Request $request) {
         $adjustedTime = Carbon::parse($request['datum'])->format('Y-m-d 00:00:00');
-        $reserveringen = Reservering::where('datum','=',$adjustedTime)->with('tafels')->get();
-        dd($reserveringen);
+        $reserveringen = Reservering::where('datum','=',$adjustedTime)->get();
+
         foreach($reserveringen as $reservering){
            $reservering['start_tijd'] = Carbon::parse($reservering['start_tijd'])->format('H:m');
+           dd($reservering);
         }
         return view('home',compact(['reserveringen']));
     }
