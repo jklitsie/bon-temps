@@ -37,7 +37,6 @@ class TafelController extends Controller
         $tafel->update();
         return $tafel;
     }
-
     public function deleteTafel(Request $request, Tafel $tafel)
     {
         if ($tafel->tafel_nummer == $request->tafel_nummer) {

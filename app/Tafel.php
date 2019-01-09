@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Menu;
+use App\Reservering;
 
 class Tafel extends Model
 {
@@ -40,6 +40,6 @@ class Tafel extends Model
     ];
     // Relationships
     public function reserveringen(){
-        return $this->belongsToMany('App\Menu','reservering_tafel');
+        return $this->belongsToMany('App\Reservering','reservering_tafel');
     }
 }
